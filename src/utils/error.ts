@@ -5,10 +5,10 @@ type ErrorDetail = {
 };
 
 export class AppError extends Error {
-  public _statusCode: number;
+  public _statusCode: string;
   public _details: ErrorDetail;
 
-  constructor(message: string, statusCode: number, details: ErrorDetail) {
+  constructor(message: string, statusCode: string, details: ErrorDetail) {
     super(message);
 
     this._statusCode = statusCode;
