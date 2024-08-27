@@ -1,0 +1,13 @@
+{
+  "mainTitle": "World Stats",
+  "overview": "Welcome To World Stats!",
+  "content": {
+    "landingPage": "View, learn and explore our beautiful world"
+  },
+  "errorCode": {
+    "notFound": "404"
+  },
+  "pageNotFound": {
+    "description": "Oops! This page could not be found"
+  }
+}
