@@ -10,7 +10,7 @@ const useToaster = (): UseToaster => {
   const showToast = (
     type: NotificationType,
     message: string,
-    description?: string
+    description?: string,
   ) => {
     notification[type]({
       message,
