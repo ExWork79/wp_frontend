@@ -4,7 +4,6 @@ import { i18n } from "./utils";
 import { DEFAULT_LANGUAGE_CODE } from "./constants";
 import { PageNotFound } from "./errors";
 import { Home } from "./modules/home";
-import DumbPage from "./modules/DumpPage";
 
 function Router() {
   useEffect(() => {
@@ -20,7 +19,6 @@ function Router() {
       <Route path="/" element={<Home />} />
       <Route path="*" element={<PageNotFound />} />
       <Route path="/page-not-found" element={<PageNotFound />} />
-      <Route path="/dumb" element={<DumbPage />} />
     </Routes>
   );
 }
