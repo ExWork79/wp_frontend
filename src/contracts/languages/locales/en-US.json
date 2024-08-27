@@ -4,6 +4,12 @@
   "content": {
     "landingPage": "View, learn and explore our beautiful world"
   },
+  "header": {
+    "listOption": {
+      "Country": "Country",
+      "Population": "Population"
+    }
+  },
   "errorCode": {
     "notFound": "404"
   },

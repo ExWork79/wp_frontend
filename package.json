@@ -11,6 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@amcharts/amcharts5": "^5.10.3",
+    "@amcharts/amcharts5-geodata": "^5.1.4",
+    "@ant-design/icons": "^5.4.0",
     "@tanstack/react-query": "^5.52.1",
     "antd": "^5.20.3",
     "axios": "^1.7.5",

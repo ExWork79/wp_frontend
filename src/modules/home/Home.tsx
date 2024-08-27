@@ -1,4 +1,6 @@
 import { FC } from "react";
+import { Content, Header, Layout } from "../../layout";
+import { Loader, Navbar } from "../../uiComponents";
 import { useGlobalStore } from "../../store";
 import { useQuery } from "@tanstack/react-query";
 
@@ -13,16 +15,21 @@ const Home: FC = () => {
     queryFn: fetchCountries,
   });
 
-  if (isLoading || !countries) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Loader />;
   }
 
   return (
-    <div>
-      {countries.map((country) => (
-        <div key={country._id}>{country.name}</div>
-      ))}
-    </div>
+    <Layout>
+      <Header bgColor="white" boxShadow="0px 2px 4px rgba(0, 0, 0, 0.1)">
+        <Navbar />
+      </Header>
+      <Content>
+        {countries.map((country) => (
+          <div key={country.name}>{country.name}</div>
+        ))}
+      </Content>
+    </Layout>
   );
 };
 
