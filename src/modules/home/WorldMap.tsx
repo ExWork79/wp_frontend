@@ -1,14 +1,12 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, FC } from 'react';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map";
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
-import { useNavigate } from 'react-router-dom';
 
 enum PolygonType{
   MultiPolygon = "MultiPolygon",
   Polygon = "Polygon"
 }
-
 interface DataContext{
   geometry: { 
     coordinates:  [],
@@ -20,24 +18,32 @@ interface DataContext{
   name: string
 }
 
-function WorldMap() {
-  const navigate = useNavigate()
+const WorldMap: FC = () => {
   useLayoutEffect(() => {
     let root = am5.Root.new("mapdiv");
-    let map = root.container.children.push(
+    let worldMap = root.container.children.push(
       am5map.MapChart.new(root, {
         panX: "rotateX",
         projection: am5map.geoNaturalEarth1()
       })
     );
+    
+    //Zooming on worldMap
+    let zoomControl = worldMap.set("zoomControl", am5map.ZoomControl.new(root, {
+      y: am5.p0,
+      centerY: am5.p0
+    }));
+    zoomControl.homeButton.set("visible", true);
 
-    let polygonSeries = map.series.push(
+    //World worldMap excluding Antartica
+    let polygonSeries = worldMap.series.push(
       am5map.MapPolygonSeries.new(root, {
         geoJSON: am5geodata_worldLow,
         exclude: ["AQ"]
       })
     );
 
+    //Hover to show tooltip
     polygonSeries.mapPolygons.template.setAll({
       tooltipText: "{name}",
       interactive: true
@@ -47,13 +53,40 @@ function WorldMap() {
       fill: am5.color(0x677935)
     });
 
-    polygonSeries.mapPolygons.template.events.on("click", function(ev) {
-      const id = (ev.target.dataItem?.dataContext as DataContext)?.id;
-      if(id) {
-        navigate(`/country/${id}`)
-      }
+    //Click to show modal
+    let modal = am5.Modal.new(root, {
     });
+      
+    function openModal(countryDataContext: DataContext) {
+      let anchorElement = document.createElement("a");
+      anchorElement.textContent = `Visit ${countryDataContext.name} page`
+      anchorElement.href = `/country/${countryDataContext.id}`
+      
+      let cancelButton = document.createElement("input");
+      cancelButton.type = "button";
+      cancelButton.value = "Cancel";
+      cancelButton.addEventListener("click", function() {
+        closeModal()
+      });
+      
+      modal.getPrivate("content").appendChild(anchorElement);
+      modal.getPrivate("content").appendChild(cancelButton);
+        
+      modal.open();
+    }
     
+    function closeModal() {
+      if (modal) {
+        modal.getPrivate("content").innerHTML = ''
+        modal.close();
+      }
+    }
+
+    polygonSeries.mapPolygons.template.events.on("click", function(ev) {
+      const countryDataContext = (ev.target.dataItem?.dataContext as DataContext)
+      openModal(countryDataContext)
+    });
+
     
     return () => {
       root.dispose();
