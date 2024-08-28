@@ -13,7 +13,7 @@ const PageNotFound = () => {
     window.history.replaceState(
       null,
       "Page Not Found",
-      location.state.prevRoute.pathname
+      location.state.prevRoute.pathname,
     );
   }
 

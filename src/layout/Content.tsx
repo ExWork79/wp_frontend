@@ -9,7 +9,7 @@ type Props = {
 
 const contentStyle = (
   bgColor?: string,
-  textColor?: string
+  textColor?: string,
 ): React.CSSProperties => ({
   ...(bgColor && { backgroundColor: bgColor }),
   ...(textColor && { color: textColor }),

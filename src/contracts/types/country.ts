@@ -1,3 +1,5 @@
+import { Population } from "./population";
+
 export type Country = {
   _id: string;
   name: string;
@@ -6,6 +8,7 @@ export type Country = {
   unMember: boolean;
   area: number;
   landArea: number;
+  populations?: Population[];
   flag?: string | undefined;
   createdAt?: Date;
   updatedAt?: Date;

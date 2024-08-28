@@ -19,16 +19,16 @@ const useStore = create<Store>((set) => ({
   },
   actions: {
     fetchCountries: async () => {
-      const countries = await fetchCountries();
+      const result = await fetchCountries();
 
       set((state) => ({
         value: {
           ...state.value,
-          countries,
+          countries: result.docs,
         },
       }));
 
-      return countries;
+      return result.docs;
     },
   },
 }));
