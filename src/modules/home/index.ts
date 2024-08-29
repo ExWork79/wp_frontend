@@ -1,3 +1,4 @@
 import Home from "./Home";
+import WorldMap from "./WorldMap";
 
-export { Home };
+export { Home, WorldMap };
