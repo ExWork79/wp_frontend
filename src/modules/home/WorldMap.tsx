@@ -20,7 +20,7 @@ interface DataContext{
 
 const WorldMap: FC = () => {
   useLayoutEffect(() => {
-    let root = am5.Root.new("mapdiv");
+    const root = am5.Root.new("mapdiv");
     let worldMap = root.container.children.push(
       am5map.MapChart.new(root, {
         panX: "rotateX",
@@ -56,28 +56,34 @@ const WorldMap: FC = () => {
     //Click to show modal
     let modal = am5.Modal.new(root, {
     });
+
+    let modalSetup = false;
       
     function openModal(countryDataContext: DataContext) {
-      let anchorElement = document.createElement("a");
-      anchorElement.textContent = `Visit ${countryDataContext.name} page`
-      anchorElement.href = `/country/${countryDataContext.id}`
-      
-      let cancelButton = document.createElement("input");
-      cancelButton.type = "button";
-      cancelButton.value = "Cancel";
-      cancelButton.addEventListener("click", function() {
-        closeModal()
-      });
-      
-      modal.getPrivate("content").appendChild(anchorElement);
-      modal.getPrivate("content").appendChild(cancelButton);
+      if (!modalSetup) {
+        let anchorElement = document.createElement("a");
+        anchorElement.textContent = `Visit ${countryDataContext.name} page`
+        anchorElement.href = `/country/${countryDataContext.id}`
         
+        let cancelButton = document.createElement("input");
+        cancelButton.type = "button";
+        cancelButton.value = "Cancel";
+        cancelButton.addEventListener("click", function() {
+          closeModal()
+        });
+        
+        modal.getPrivate("content").appendChild(anchorElement);
+        modal.getPrivate("content").appendChild(cancelButton);
+
+        modalSetup = true;
+      }
       modal.open();
     }
     
     function closeModal() {
-      if (modal) {
-        modal.getPrivate("content").innerHTML = ''
+      if (modalSetup) {
+        modal.getPrivate("content").innerHTML = '';
+        modalSetup = false;
         modal.close();
       }
     }
@@ -87,6 +93,11 @@ const WorldMap: FC = () => {
       openModal(countryDataContext)
     });
 
+    window.addEventListener("keydown", ev => {
+      if (ev.key === "Escape"){
+        closeModal()
+      }
+    })
     
     return () => {
       root.dispose();
