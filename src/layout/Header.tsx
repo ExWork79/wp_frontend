@@ -11,7 +11,7 @@ type Props = {
 const headerStyle = (
   bgColor?: string,
   textColor?: string,
-  boxShadow?: string
+  boxShadow?: string,
 ): React.CSSProperties => ({
   ...(bgColor && { backgroundColor: bgColor }),
   ...(textColor && { color: textColor }),

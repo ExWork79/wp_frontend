@@ -1,8 +1,10 @@
-import { Country } from "../contracts";
+import { Country, PaginationResult } from "../contracts";
 import { axiosClient } from "../utils";
 
-const fetchCountries = async () => {
-  const response = await axiosClient.get<Country[]>("/countries");
+const fetchCountries = async (page?: number, limit?: number) => {
+  const response = await axiosClient.get<PaginationResult<Country>>(
+    `/countries?${page ? `page=${page}` : ""}${limit ? `&limit=${limit}` : ""}`,
+  );
 
   if (!response) {
     throw new Error("Failed to fetch countries");
