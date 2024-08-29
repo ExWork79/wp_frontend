@@ -3,7 +3,7 @@ import { Content, Header, Layout } from "../../layout";
 import { Loader, Navbar } from "../../uiComponents";
 import { useGlobalStore } from "../../store";
 import { useQuery } from "@tanstack/react-query";
-import { WorldMap } from "../home/index"
+import { WorldMap } from "../home/index";
 
 const Home: FC = () => {
   const {
@@ -26,7 +26,9 @@ const Home: FC = () => {
         <Navbar />
       </Header>
       <Content>
-        <WorldMap/>
+        <div className="w-full h-full px-6 py-1 border-2 border-black rounded-lg">
+          <WorldMap />
+        </div>
         {countries.map((country) => (
           <div key={country.name}>{country.name}</div>
         ))}
