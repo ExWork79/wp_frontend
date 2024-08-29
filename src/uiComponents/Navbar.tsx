@@ -12,19 +12,29 @@ const Navbar: FC = () => {
   const navigate = useNavigate();
 
   const listOption = [
-    { key: "Country", value: t("header.listOption.Country") },
-    { key: "Population", value: t("header.listOption.Population") },
+    {
+      key: "Country",
+      value: t("header.listOption.Country"),
+      path: "/countries",
+    },
+    { key: "Population", value: t("header.listOption.Population"), path: "/" },
   ];
 
   const listItems: MenuProps["items"] = listOption.map((option) => {
+    const { key, value, path } = option;
+
     return {
-      key: option.key,
+      key,
       label: (
         <span className="font-[600] flex justify-center items-center hover:text-blue-500">
-          {option.value}
+          {value}
         </span>
       ),
-      onClick: () => setSelectedOption(option.key),
+      onClick: () => {
+        navigate(path);
+        setSelectedOption(key);
+        setOpenDropdown(false);
+      },
     };
   });
 
@@ -34,7 +44,7 @@ const Navbar: FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-[1fr_2fr_1fr] w-full h-16">
+    <div className="grid md:grid-cols-[1fr_2fr_1fr] grid-cols-2 w-full h-16">
       <div
         className="flex w-full justify-center items-center cursor-pointer"
         onClick={handleLogoClick}
@@ -44,21 +54,21 @@ const Navbar: FC = () => {
         </Typography.Title>
       </div>
       <div className="hidden md:flex w-full gap-10">
-        {listOption.map((option) => (
+        {listOption.map(({ key, value, path }) => (
           <div
-            key={option.key}
-            className={`cursor-pointer font-[600] ${
-              selectedOption === option.key ? "text-blue-500" : "text-stone-400"
+            key={key}
+            className={`flex justify-center items-center cursor-pointer font-[500] text-xl ${
+              selectedOption === key ? "text-blue-500" : "text-stone-400"
             } hover:text-blue-500`}
-            onClick={() => setSelectedOption(option.key)}
+            onClick={() => {
+              navigate(path);
+              setSelectedOption(key);
+            }}
           >
-            {option.value}
+            {value}
           </div>
         ))}
       </div>
-      {/* <div className="flex items-center justify-center border border-gray-300">
-        Profile
-      </div> */}
       <div className="md:hidden flex justify-end w-full">
         <Dropdown
           menu={{ items: listItems }}
