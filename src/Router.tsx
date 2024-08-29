@@ -4,7 +4,7 @@ import { i18n } from "./utils";
 import { DEFAULT_LANGUAGE_CODE } from "./constants";
 import { PageNotFound } from "./errors";
 import { Home } from "./modules/home";
-import { CountryDetails } from "./modules/countryDetails";
+import { Countries, CountryDetails } from "./modules/countries";
 
 function Router() {
   useEffect(() => {
@@ -18,9 +18,13 @@ function Router() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route
+        path="/countries"
+        element={<Countries />}
+        children={<Route path=":countryCode" element={<CountryDetails />} />}
+      />
       <Route path="*" element={<PageNotFound />} />
       <Route path="/page-not-found" element={<PageNotFound />} />
-      <Route path="/country/:id" element={<CountryDetails/>} />
     </Routes>
   );
 }
