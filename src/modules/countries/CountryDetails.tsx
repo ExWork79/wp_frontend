@@ -19,16 +19,16 @@ const CountryDetails: FC = () => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["country", params.id],
+    queryKey: ["country", params.countryCode],
     queryFn: async () => {
-      if (params.id) {
-        const countryDetail = await fetchCountryByCCA2(params.id);
+      if (params.countryCode) {
+        const countryDetail = await fetchCountryByCCA2(params.countryCode);
 
         return countryDetail;
       }
     },
     initialData: undefined,
-    enabled: !!params.id,
+    enabled: !!params.countryCode,
   });
 
   if (error) {
