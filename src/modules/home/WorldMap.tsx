@@ -97,6 +97,32 @@ const WorldMap: FC = () => {
       navigate(`/countries/${dataItem.id}`);
     });
 
+    polygonSeries.data.setAll(
+      geoWorldData.features.map((geoCountry) => {
+        const country = countries.find(
+          (country) => country.cca2 === geoCountry.id
+        );
+
+        if (country) {
+          return {
+            id: geoCountry.id,
+            name: country.name,
+            polygonSettings: {
+              stroke: am5.color(0x000000),
+              strokeWidth: 0.5,
+              tooltipHTML: renderHTMLContent({
+                cca2: country.cca2,
+                name: country.name,
+                population: country.populations?.[0].value,
+              }),
+            },
+          };
+        }
+
+        return geoCountry;
+      })
+    );
+
     polygonSeries.mapPolygons.template.states.create("hover", {
       fill: am5.color(0x677935),
     });
