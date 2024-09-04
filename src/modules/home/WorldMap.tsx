@@ -2,6 +2,8 @@ import { FC, useEffect } from "react";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map";
 import geoWorldData from "@amcharts/amcharts5-geodata/worldLow";
+import { useNavigate } from "react-router-dom";
+
 import { useGlobalStore } from "../../store";
 
 type DataContext = {
@@ -29,15 +31,6 @@ const renderHTMLContent = (country: DataContext) => {
       "
     >
       <div
-        style="
-          display: flex;
-          flex-direction: row;
-          width: 100%;
-          height: 40px;
-          gap: 2px;
-        "
-      >
-        <div
           style="
             display: flex;
             justify-content: center;
@@ -51,20 +44,6 @@ const renderHTMLContent = (country: DataContext) => {
         >
           <h3>${name}</h3>
         </div>
-        <div
-          style="
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #838383;
-            color: #ffffff;
-            cursor: pointer;
-            flex: 2;
-          "
-        >
-          X
-        </div>
-      </div>
       <p style="font-size: 0.875rem; color: #4b5563; font-weight: bold;">
         Population: ${formattedPopulation}
       </p>
@@ -76,6 +55,8 @@ const WorldMap: FC = () => {
   const {
     value: { countries },
   } = useGlobalStore();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const rootMap = am5.Root.new("mapdiv");
@@ -107,9 +88,22 @@ const WorldMap: FC = () => {
       )
       .homeButton.set("visible", true);
 
+    polygonSeries.mapPolygons.template.events.on("click", (ev) => {
+      const dataItem = ev.target.dataItem?.dataContext as {
+        id: string;
+        name: string;
+      };
+
+      navigate(`/countries/${dataItem.id}`);
+    });
+
+    polygonSeries.mapPolygons.template.states.create("hover", {
+      fill: am5.color(0x677935),
+    });
+
     polygonSeries.mapPolygons.template.setAll({
       templateField: "polygonSettings",
-      showTooltipOn: "click",
+      showTooltipOn: "hover",
       tooltip: am5.Tooltip.new(rootMap, {
         getFillFromSprite: false,
         getStrokeFromSprite: false,
@@ -147,10 +141,6 @@ const WorldMap: FC = () => {
         return geoCountry;
       })
     );
-
-    polygonSeries.mapPolygons.template.states.create("hover", {
-      fill: am5.color(0x677935),
-    });
 
     return () => {
       rootMap.dispose();

@@ -18,11 +18,9 @@ function Router() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route
-        path="/countries"
-        element={<Countries />}
-        children={<Route path=":countryCode" element={<CountryDetails />} />}
-      />
+      <Route path="/countries" element={<Countries />}>
+        <Route path=":countryCode" element={<CountryDetails />} />
+      </Route>
       <Route path="*" element={<PageNotFound />} />
       <Route path="/page-not-found" element={<PageNotFound />} />
     </Routes>
