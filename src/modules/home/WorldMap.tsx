@@ -51,6 +51,34 @@ const renderHTMLContent = (country: DataContext) => {
   `;
 };
 
+const populationBasedColor = (population: number) =>{
+  switch (true) {
+    case population >= 1000000000:
+      return am5.color(0x004F9E);
+
+    case population >= 200000000:
+      return am5.color(0x166ABF);
+
+    case population >= 100000000:
+      return am5.color(0x2A7DC6);
+
+    case population >= 75000000:
+      return am5.color(0x4C90D1);
+
+    case population >= 50000000:
+      return am5.color(0x76A9DD);
+
+    case population >= 25000000:
+      return am5.color(0x9DC2EA);
+
+    case population >= 10000000:
+      return am5.color(0xC7DDF6);
+      
+    default:
+      return am5.color(0xE2EEF9);
+  }
+}
+
 const WorldMap: FC = () => {
   const {
     value: { countries },
@@ -129,6 +157,7 @@ const WorldMap: FC = () => {
             polygonSettings: {
               stroke: am5.color(0x000000),
               strokeWidth: 0.5,
+              fill: populationBasedColor(country.populations?.[0].value ?? 0),
               tooltipHTML: renderHTMLContent({
                 cca2: country.cca2,
                 name: country.name,
