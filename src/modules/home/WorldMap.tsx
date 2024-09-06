@@ -78,6 +78,40 @@ const populationBasedColor = (population: number) =>{
       return am5.color(0xE2EEF9);
   }
 }
+const colorBased = [
+  {
+    color: "#E2EEF9",
+    name: "0"
+  },
+  {
+    color: "#C7DDF6",
+    name: "10M"
+  },
+  {
+    color: "#9DC2EA",
+    name: "25M"
+  },
+  {
+    color: "#76A9DD",
+    name: "50M"
+  },
+  {
+    color: "#4C90D1",
+    name: "75M"
+  },
+  {
+    color: "#2A7DC6",
+    name: "100M"
+  },
+  {
+    color: "#166ABF",
+    name: "200M"
+  },
+  {
+    color: "#004F9E",
+    name: "1B"
+  },
+]
 
 const WorldMap: FC = () => {
   const {
@@ -170,6 +204,23 @@ const WorldMap: FC = () => {
         return geoCountry;
       })
     );
+
+    const legend = rootMap.container.children.push(am5.Legend.new(rootMap, {
+      nameField: "name",
+      fillField: "color",
+      strokeField: "color",
+      x: am5.percent(10),
+      y: am5.percent(100),
+      centerY: am5.percent(100),
+      layout: rootMap.horizontalLayout
+    }));
+
+    legend.data.setAll(colorBased);
+
+    legend.markers.template.setAll({
+      width: 24,
+      height: 24
+    });
 
     return () => {
       rootMap.dispose();
