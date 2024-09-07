@@ -68,14 +68,14 @@ const WorldMap: FC = () => {
         wheelX: "none",
         wheelY: "none",
         projection: am5map.geoMercator(),
-      })
+      }),
     );
 
     const polygonSeries = worldMap.series.push(
       am5map.MapPolygonSeries.new(rootMap, {
         geoJSON: geoWorldData,
         exclude: ["AQ"],
-      })
+      }),
     );
 
     worldMap
@@ -84,7 +84,7 @@ const WorldMap: FC = () => {
         am5map.ZoomControl.new(rootMap, {
           y: am5.p0,
           centerY: am5.p0,
-        })
+        }),
       )
       .homeButton.set("visible", true);
 
@@ -119,7 +119,7 @@ const WorldMap: FC = () => {
     polygonSeries.data.setAll(
       geoWorldData.features.map((geoCountry) => {
         const country = countries.find(
-          (country) => country.cca2 === geoCountry.id
+          (country) => country.cca2 === geoCountry.id,
         );
 
         if (country) {
@@ -139,7 +139,7 @@ const WorldMap: FC = () => {
         }
 
         return geoCountry;
-      })
+      }),
     );
 
     return () => {

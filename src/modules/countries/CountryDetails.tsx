@@ -50,13 +50,13 @@ const CountryDetails: FC = () => {
             wheelX: "none",
             wheelY: "none",
             projection: am5map.geoMercator(),
-          })
+          }),
         );
 
         const polygonSeries = mapChart.series.push(
           am5map.MapPolygonSeries.new(rootMap, {
             geoJSON: geoData,
-          })
+          }),
         );
 
         polygonSeries.mapPolygons.template.setAll({

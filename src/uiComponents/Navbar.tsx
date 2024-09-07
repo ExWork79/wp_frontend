@@ -39,7 +39,7 @@ const Navbar: FC = () => {
   });
 
   const handleLogoClick = () => {
-    navigate(0);
+    navigate("/");
     setSelectedOption("");
   };
 

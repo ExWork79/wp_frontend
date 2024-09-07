@@ -10,13 +10,16 @@ type Store = {
   value: InitialState;
   actions: {
     fetchCountries: () => Promise<Country[]>;
+    clearStore: () => void;
   };
 };
 
+const defaultState: InitialState = {
+  countries: [],
+};
+
 const useStore = create<Store>((set) => ({
-  value: {
-    countries: [],
-  },
+  value: defaultState,
   actions: {
     fetchCountries: async () => {
       const result = await fetchCountries();
@@ -29,6 +32,11 @@ const useStore = create<Store>((set) => ({
       }));
 
       return result.docs;
+    },
+    clearStore() {
+      set(() => ({
+        value: defaultState,
+      }));
     },
   },
 }));

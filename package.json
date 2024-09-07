@@ -17,6 +17,7 @@
     "@tanstack/react-query": "^5.52.1",
     "antd": "^5.20.3",
     "axios": "^1.7.5",
+    "country-flag-icons": "^1.5.13",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "i18next": "^23.14.0",
