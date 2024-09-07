@@ -7,7 +7,6 @@ import { WorldMap } from "../home/index";
 
 const Home: FC = () => {
   const {
-    value: { countries },
     actions: { fetchCountries },
   } = useGlobalStore();
 
@@ -29,9 +28,6 @@ const Home: FC = () => {
         <div className="w-full h-full px-6 py-1 border-2 border-black rounded-lg">
           <WorldMap />
         </div>
-        {countries.map((country) => (
-          <div key={country.name}>{country.name}</div>
-        ))}
       </Content>
     </Layout>
   );

@@ -18,9 +18,8 @@ function Router() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/countries" element={<Countries />}>
-        <Route path=":countryCode" element={<CountryDetails />} />
-      </Route>
+      <Route path="/countries" element={<Countries />} />
+      <Route path="/countries/:countryCode" element={<CountryDetails />} />
       <Route path="*" element={<PageNotFound />} />
       <Route path="/page-not-found" element={<PageNotFound />} />
     </Routes>

@@ -1,7 +1,10 @@
 import { Country, PaginationResult } from "../contracts";
 import { axiosClient } from "../utils";
 
-const fetchCountries = async (page?: number, limit?: number): Promise<PaginationResult<Country>> => {
+const fetchCountries = async (
+  page?: number,
+  limit?: number,
+): Promise<PaginationResult<Country>> => {
   const response = await axiosClient.get<PaginationResult<Country>>(
     `/countries?${page ? `page=${page}` : ""}${limit ? `&limit=${limit}` : ""}`,
   );
@@ -53,4 +56,10 @@ const fetchCountryByCCA3 = async (code: string): Promise<Country> => {
   return response.data;
 };
 
-export { fetchCountries, fetchCountry, fetchCountryByName, fetchCountryByCCA2, fetchCountryByCCA3 };
+export {
+  fetchCountries,
+  fetchCountry,
+  fetchCountryByName,
+  fetchCountryByCCA2,
+  fetchCountryByCCA3,
+};
