@@ -6,7 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import useErrorHandler from "../../hooks/useErrorHandler";
 import { fetchCountryByCCA2 } from "../../api";
-import { Loader } from "../../uiComponents";
+import { Loader, Navbar } from "../../uiComponents";
+import { Content, Header, Layout } from "../../layout";
 
 import { getGeoData } from "./geodata";
 
@@ -50,13 +51,13 @@ const CountryDetails: FC = () => {
             wheelX: "none",
             wheelY: "none",
             projection: am5map.geoMercator(),
-          }),
+          })
         );
 
         const polygonSeries = mapChart.series.push(
           am5map.MapPolygonSeries.new(rootMap, {
             geoJSON: geoData,
-          }),
+          })
         );
 
         polygonSeries.mapPolygons.template.setAll({
@@ -79,7 +80,37 @@ const CountryDetails: FC = () => {
     return <Loader />;
   }
 
-  return <div id="countrymapdiv" className="w-full h-full" />;
+  return (
+    <Layout>
+      <Header bgColor="white" boxShadow="0px 2px 4px rgba(0, 0, 0, 0.1)">
+        <Navbar />
+      </Header>
+      <Content>
+        <div className="flex w-full h-full gap-2 flex-col mt-4">
+          <div
+            className="flex w-full justify-center h-12 p-2 items-center bg-background-100
+           border rounded border-background-400 border-solid"
+          >
+            <h1 className="text-3xl font-bold">
+              {countryDetail.name.toLocaleUpperCase()}
+            </h1>
+          </div>
+          <div
+            className="grid grid-cols-2 w-full h-full bg-background-100 border rounded
+            border-background-400 border-solid relative"
+          >
+            <div className="p-4 w-full h-full">
+              <div id="countrymapdiv" className="w-full h-full" />
+            </div>
+            <div className="flex justify-center items-center w-full h-full">
+              <div>Country Information</div>
+            </div>
+            <div className="absolute inset-y-0 left-1/2 w-[1px] bg-background-400"></div>
+          </div>
+        </div>
+      </Content>
+    </Layout>
+  );
 };
 
 export default CountryDetails;
