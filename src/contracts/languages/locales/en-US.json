@@ -15,5 +15,6 @@
   },
   "pageNotFound": {
     "description": "Oops! This page could not be found"
-  }
+  },
+  "totalCountries": "Total Countries: {{value}}"
 }
