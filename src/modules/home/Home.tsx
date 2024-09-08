@@ -25,7 +25,7 @@ const Home: FC = () => {
         <Navbar />
       </Header>
       <Content>
-        <div className="w-full h-full px-6 py-1 border-2 border-black rounded-lg">
+        <div className="w-full h-full px-6 py-4 border-2 border-black rounded-lg">
           <WorldMap />
         </div>
       </Content>

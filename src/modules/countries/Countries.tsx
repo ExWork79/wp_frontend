@@ -109,27 +109,29 @@ const Countries: FC = () => {
         <Navbar />
       </Header>
       <Content>
-        <Table
-          bordered
-          columns={columns}
-          dataSource={countries}
-          pagination={{
-            ...pagination,
-            pageSizeOptions: PAGE_SIZE_OPTIONS,
-            showSizeChanger: true,
-            showTotal: (total) => (
-              <span className="text-sm text-gray-500">
-                {t("totalCountries", { value: total })}
-              </span>
-            ),
-            onChange: (page, pageSize) => {
-              setPagination({ current: page, pageSize });
-            },
-          }}
-          scroll={{ y: 480 }}
-          loading={isLoading}
-          tableLayout="fixed"
-        />
+        <div className="p-4">
+          <Table
+            bordered
+            columns={columns}
+            dataSource={countries}
+            pagination={{
+              ...pagination,
+              pageSizeOptions: PAGE_SIZE_OPTIONS,
+              showSizeChanger: true,
+              showTotal: (total) => (
+                <span className="text-sm text-gray-500">
+                  {t("totalCountries", { value: total })}
+                </span>
+              ),
+              onChange: (page, pageSize) => {
+                setPagination({ current: page, pageSize });
+              },
+            }}
+            scroll={{ y: 480 }}
+            loading={isLoading}
+            tableLayout="fixed"
+          />
+        </div>
       </Content>
     </Layout>
   );
