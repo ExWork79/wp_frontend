@@ -14,7 +14,7 @@ This project aims to visualize data related to countries across the world on an 
 
 - **Frontend**: 
   - HTML5, CSS3
-  - JavaScript (React)
+  - TypeScript (React)
   - amCharts for map rendering
 
 ## Installation
