@@ -1,5 +1,6 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Table, TableColumnsType } from "antd";
 
 import { useCountryStore } from "./store";
@@ -9,10 +10,17 @@ import { Country, Population } from "../../contracts";
 import { PAGE_SIZE_OPTIONS } from "../../constants";
 
 const Countries: FC = () => {
+  const { t } = useTranslation();
+
   const {
     value: { countries },
     actions: { fetchCountries },
   } = useCountryStore();
+
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
 
   const { isLoading } = useQuery({
     queryKey: ["countries"],
@@ -29,8 +37,8 @@ const Countries: FC = () => {
     {
       title: "No",
       key: "no",
-      render: (_value: any, _record: Country, index: number) => {
-        return index + 1;
+      render: (_value, _record, index: number) => {
+        return (pagination.current - 1) * pagination.pageSize + index + 1;
       },
       align: "center",
       width: "20px",
@@ -105,7 +113,19 @@ const Countries: FC = () => {
           bordered
           columns={columns}
           dataSource={countries}
-          pagination={{ pageSizeOptions: PAGE_SIZE_OPTIONS }}
+          pagination={{
+            ...pagination,
+            pageSizeOptions: PAGE_SIZE_OPTIONS,
+            showSizeChanger: true,
+            showTotal: (total) => (
+              <span className="text-sm text-gray-500">
+                {t("totalCountries", { value: total })}
+              </span>
+            ),
+            onChange: (page, pageSize) => {
+              setPagination({ current: page, pageSize });
+            },
+          }}
           scroll={{ y: 480 }}
           loading={isLoading}
           tableLayout="fixed"
