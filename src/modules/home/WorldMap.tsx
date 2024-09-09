@@ -205,29 +205,24 @@ const WorldMap: FC = () => {
       }),
     );
 
-    const legend = rootMap.container.children.push(am5.Legend.new(rootMap, {
-      nameField: "name",
-      fillField: "color",
-      strokeField: "color",
-      x: am5.percent(10),
-      y: am5.percent(100),
-      centerY: am5.percent(100),
-      layout: rootMap.horizontalLayout
-    }));
-
-    legend.data.setAll(colorBased);
-
-    legend.markers.template.setAll({
-      width: 24,
-      height: 24
-    });
-
     return () => {
       rootMap.dispose();
     };
   }, []);
 
-  return <div id="mapdiv" className="h-full w-full border rounded-lg" />;
+  return (
+    <>
+      <div id="mapdiv" className="h-full w-full border rounded-lg" />
+      <div className="flex flex-row flex-wrap items-center justify-center py-1 gap-3">
+        {colorBased.map( colorBase =>
+          <>
+            <div className={`w-4 h-4 bg-[${colorBase.color}]`}></div>
+            <div>{colorBase.name}</div>
+          </>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default WorldMap;
