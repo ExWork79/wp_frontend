@@ -51,6 +51,68 @@ const renderHTMLContent = (country: DataContext) => {
   `;
 };
 
+const populationBasedColor = (population: number) =>{
+  switch (true) {
+    case population >= 1000000000:
+      return am5.color(0x004F9E);
+
+    case population >= 200000000:
+      return am5.color(0x166ABF);
+
+    case population >= 100000000:
+      return am5.color(0x2A7DC6);
+
+    case population >= 75000000:
+      return am5.color(0x4C90D1);
+
+    case population >= 50000000:
+      return am5.color(0x76A9DD);
+
+    case population >= 25000000:
+      return am5.color(0x9DC2EA);
+
+    case population >= 10000000:
+      return am5.color(0xC7DDF6);
+      
+    default:
+      return am5.color(0xE2EEF9);
+  }
+}
+const colorBased = [
+  {
+    color: "#E2EEF9",
+    name: "0"
+  },
+  {
+    color: "#C7DDF6",
+    name: "10M"
+  },
+  {
+    color: "#9DC2EA",
+    name: "25M"
+  },
+  {
+    color: "#76A9DD",
+    name: "50M"
+  },
+  {
+    color: "#4C90D1",
+    name: "75M"
+  },
+  {
+    color: "#2A7DC6",
+    name: "100M"
+  },
+  {
+    color: "#166ABF",
+    name: "200M"
+  },
+  {
+    color: "#004F9E",
+    name: "1B"
+  },
+]
+
 const WorldMap: FC = () => {
   const {
     value: { countries },
@@ -129,6 +191,7 @@ const WorldMap: FC = () => {
             polygonSettings: {
               stroke: am5.color(0x000000),
               strokeWidth: 0.5,
+              fill: populationBasedColor(country.populations?.[0].value ?? 0),
               tooltipHTML: renderHTMLContent({
                 cca2: country.cca2,
                 name: country.name,
@@ -147,7 +210,19 @@ const WorldMap: FC = () => {
     };
   }, []);
 
-  return <div id="mapdiv" className="h-full w-full border rounded-lg" />;
+  return (
+    <>
+      <div id="mapdiv" className="h-full w-full border rounded-lg" />
+      <div className="flex flex-row flex-wrap items-center justify-center py-1 gap-3">
+        {colorBased.map( colorBase =>
+          <>
+            <div className={`w-4 h-4 bg-[${colorBase.color}]`}></div>
+            <div>{colorBase.name}</div>
+          </>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default WorldMap;

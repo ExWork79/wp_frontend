@@ -1,50 +1,64 @@
-# React + TypeScript + Vite
+# World Map Data Visualization Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This project aims to visualize data related to countries across the world on an interactive map. The map displays country-specific metrics such as population, GDP, or any other relevant datasets.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- 🌍 **Interactive World Map**: Hover over countries to display relevant data.
+- 📊 **Data Visualizations**: Graphs and charts to represent country data trends.
+- 🔍 **Country Search**: Search for specific countries to view detailed information.
+  
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend**: 
+  - HTML5, CSS3
+  - TypeScript (React)
+  - amCharts for map rendering
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/wp_frontend.git
+    ```
+   
+2. Install dependencies:
+    ```bash
+    cd wp_frontend
+    yarn install
+    ```
+   
+3. Run the project:
+    ```bash
+    yarn dev
+    ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Usage
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Visit `http://localhost:4000` to view the interactive map.
+- Hover over a country to see its data.
+- Use the search bar to find a specific country.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Data Sources
+
+- **Population Data**: [World population site](https://worldpopulationreview.com/) 
+
+## Future Enhancements
+
+- Add more data sources such as education or environmental statistics.
+- Implement time-series data to track changes over the years.
+- Allow users to compare data between multiple countries.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+## Screenshots
+
+![World Map Screenshot](path-to-screenshot)
+
+## Contributors
+
+- [Your Name](https://github.com/yourusername)
